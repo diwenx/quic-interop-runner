@@ -1,3 +1,23 @@
+# Packet Injection Testing on Different QUIC Implementations
+
+This fork aims to automatically testing how different QUIC client & server implementations react to packet injection attacks by on-path attackers. The fork removes many testcases (except the basic HTTP3 test) and validation logics of the original [quic-interop-runner](https://github.com/marten-seemann/quic-interop-runner). It only aims to 1) inject packets at custom position with custom payload and network RTT; and 2) capture pcap for manual analysis.
+
+To run it:
+
+```bash
+python3 run.py --client <comma-separated client implementations> --server <comma-separated server implementations> <--debug> --rtt <network RTT> -i <docker network interface for packet injection and pcap>
+```
+
+A few notes:
+
+- Make sure to use python >= 3.7.5, due to a [timeout bug](https://bugs.python.org/issue37424).
+- The docker network interface can be found with ```docker network ls```. Use <leftnet> if you want to inject/capture near the client and <rightnet> to inject near the server.
+- [quic-interop-runner](https://github.com/marten-seemann/quic-interop-runner) does not support docker compose v2 yet. Follow the installation guide [here](https://docs.docker.com/compose/install/standalone/) but make sure to use docker-compose v1 (the latest v1 is v1.29.2).
+- If you want to test Chrome client, see the issue [here](https://github.com/marten-seemann/chrome-quic-interop-runner/pull/12).
+- Modify middlebox.py to change the injection logic.
+
+# Original README Below
+
 # Interop Test Runner
 
 The Interop Test Runner aims to automatically generate an interop matrix by running multiple **test cases** using different QUIC implementations.
