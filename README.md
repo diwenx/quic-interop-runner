@@ -4,7 +4,7 @@ This fork aims to automatically testing how different QUIC client & server imple
 
 To run it:
 
-```bash
+```
 python3 run.py --client <comma-separated client implementations> --server <comma-separated server implementations> <--debug> --rtt <network RTT> -i <docker network interface for packet injection and pcap>
 ```
 
